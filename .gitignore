@@ -152,7 +152,6 @@ venv/
 .vs/
 Debug/
 vcpkg_installed/
-.env
 .eslintcache
 .umi-production/
 .umi/
