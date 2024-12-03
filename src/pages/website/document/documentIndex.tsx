@@ -19,7 +19,7 @@ export default () => {
       const respVo = await request<API.Result>(`${appConfig.baseURL}/api/document/translate/${id}`, { method: 'GET' });
       hide(); // 手动关闭加载提示
       if (respVo.ok) {
-        messageApi.success('Translation completed successfully!');
+        messageApi.success('Translation task submit successfully!');
         setTableKey(Date.now());
       } else {
         messageApi.error(respVo.msg || 'Translation failed. Please try again.');
