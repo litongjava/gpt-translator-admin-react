@@ -50,6 +50,26 @@ export default () => {
     }
   };
 
+  const exportSrcContentRequest = async (id: string) => {
+    const hide = messageApi.loading('Exporting...', 0);
+    try {
+      const url = `${appConfig.baseURL}/api/document/export/src/${id}`;
+      const a = document.createElement('a');
+      a.href = url;
+      a.target = '_blank';
+      a.download = '';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      hide();
+      messageApi.success('Export completed successfully!');
+      setTableKey(Date.now());
+    } catch (error) {
+      hide();
+      messageApi.error(`Error: ${error || 'Unexpected error occurred.'}`);
+    }
+  };
+
   // 定义操作列
   const editContentAndPreview = {
     title: 'Buttons',
@@ -63,10 +83,16 @@ export default () => {
         Translate
       </a>,
       <a
-        key={`export-${record.id}`}
+        key={`export-src-${record.id}`}
+        onClick={() => exportSrcContentRequest(record.id)}
+      >
+        Export Src
+      </a>,
+      <a
+        key={`export-dst-${record.id}`}
         onClick={() => exportDstContentRequest(record.id)}
       >
-        Export
+        Export Dst
       </a>
     ],
   };
